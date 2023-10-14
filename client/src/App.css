@@ -59,4 +59,32 @@ svg.done-check {
   margin: 0 auto;
   color: #54ff54;
   font-size: 30px;
+  pointer-events: none;
+}
+
+li.todo-box input {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 16px;
+    width: 95%;
+      border-bottom: 1px solid #fff;
+}
+
+.tabs-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0 0;
+}
+
+.tabs-container button {
+  background: #f2bf57;
+}
+
+.tabs-container button.active {
+  background: #3f4660;
+  color: #fff;
 }

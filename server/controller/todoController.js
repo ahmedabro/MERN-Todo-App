@@ -40,3 +40,30 @@ export const toggleTodo = async (request, response) => {
         return response.status(500).json(error.message)
     }
 }
+
+export const deleteTodo = async (request, response) => {
+    try {
+        const todoDelete = await Todo.findByIdAndDelete(request.params.id)
+
+        return response.status(200).json(todoDelete)
+    } catch (error) {
+        return response.status(500).json(error.message)
+    }
+}
+
+export const updateTodo = async (request, response) => {
+    try {
+        const todoUpdate = await Todo.findOneAndUpdate(
+            { _id: request.params.id },
+            { data: request.body.data }
+        )
+
+        await todoUpdate.save()
+
+        const todo = await Todo.findById(request.params.id)
+
+        return response.status(200).json(todo)
+    } catch (error) {
+        return response.status(500).json(error.message)
+    }
+}

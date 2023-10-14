@@ -30,6 +30,24 @@ export const toggleTodo = createAsyncThunk('toggleTodo', async (id, { rejectWith
     }
 })
 
+export const deleteTodo = createAsyncThunk('deleteTodo', async (id, { rejectWithValue }) => {
+    try {
+        const response = await axios.delete(`${API_URL}/todos/${id}`)
+        return response
+    } catch (error) {
+        return rejectWithValue("Error while calling deleteTodo API", error)
+    }
+})
+
+export const updateTodo = createAsyncThunk('updateTodo', async ({id, data}, { rejectWithValue }) => {
+    try {
+        const response = await axios.put(`${API_URL}/todos/${id}`, { data })
+        return response
+    } catch (error) {
+        return rejectWithValue("Error while calling deleteTodo API", error)
+    }
+})
+
 export const todoSlice = createSlice({
     name: "todos",
     initialState: {
@@ -75,6 +93,36 @@ export const todoSlice = createSlice({
             ))
         })
         builder.addCase(toggleTodo.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.payload
+        })
+
+        builder.addCase(deleteTodo.pending, (state) => {
+            state.isLoading = true
+        })
+        builder.addCase(deleteTodo.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.todos = state.todos.filter(todo => (
+                todo._id !== action.payload.data._id
+            ))
+        })
+        builder.addCase(deleteTodo.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.payload
+        })
+
+        builder.addCase(updateTodo.pending, (state) => {
+            state.isLoading = true
+        })
+        builder.addCase(updateTodo.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.todos = state.todos.map(todo => (
+                todo._id === action.payload.data._id ? {...todo, data: action.payload.data.data} : todo
+            ))
+            console.log(action.payload.data.data)
+
+        })
+        builder.addCase(updateTodo.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.payload
         })
