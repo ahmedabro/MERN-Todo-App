@@ -40,16 +40,17 @@
 
 li.todo-box {
   display: grid;
-  grid-template-columns: 90% 5% 5%;
-  grid-gap: 5px;
-  align-items: center;
-  background: #3f4660;
-  border-radius: 8px;
-  padding: 10px 20px;
-  margin: 10px 0;
-  color: #fff;
-  cursor: pointer;
-  position: relative;
+    grid-template-columns: 90% 5% 5%;
+    grid-gap: 5px;
+    align-items: center;
+    background: #3f4660;
+    border-radius: 8px;
+    padding: 30px 20px 15px;
+    margin: 10px 0;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow-x: hidden;
 }
 
 svg.done-check {
@@ -87,4 +88,13 @@ li.todo-box input {
 .tabs-container button.active {
   background: #3f4660;
   color: #fff;
+}
+
+span.date {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-size: 10px;
+  padding: 10px 20px;
 }
